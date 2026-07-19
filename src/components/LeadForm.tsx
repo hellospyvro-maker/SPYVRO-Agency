@@ -25,14 +25,20 @@ export default function LeadForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.email.trim() && !formData.phone.trim()) {
+      toast.error('Please provide at least an Email address or a Phone number so we can contact you!');
+      return;
+    }
+
     setLoading(true);
     try {
       const newLeadRef = doc(collection(db, 'leads'));
       
       const payload: Record<string, any> = {
         name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
         createdAt: serverTimestamp(),
       };
       
@@ -166,9 +172,10 @@ export default function LeadForm() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">Email Address *</label>
+                  <label className="block text-sm font-medium text-primary mb-2">
+                    Email Address <span className="text-xs font-normal text-slate-400">(At least Email or Phone required)</span>
+                  </label>
                   <input 
-                    required
                     type="email" 
                     className="w-full px-4 py-3 rounded-xl border border-border-subtle bg-slate-50 focus:bg-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
                     value={formData.email}
@@ -176,9 +183,10 @@ export default function LeadForm() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">Phone Number *</label>
+                  <label className="block text-sm font-medium text-primary mb-2">
+                    Phone Number <span className="text-xs font-normal text-slate-400">(At least Email or Phone required)</span>
+                  </label>
                   <input 
-                    required
                     type="tel" 
                     className="w-full px-4 py-3 rounded-xl border border-border-subtle bg-slate-50 focus:bg-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
                     value={formData.phone}

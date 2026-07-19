@@ -20,8 +20,9 @@ service cloud.firestore {
       return data.keys().hasAll(['name', 'email', 'phone', 'createdAt']) &&
              data.keys().size() <= 15 &&
              data.name is string && data.name.size() <= 100 && data.name.size() > 0 &&
-             data.email is string && data.email.size() <= 100 && data.email.size() > 0 &&
-             data.phone is string && data.phone.size() <= 20 && data.phone.size() > 0 &&
+             data.email is string && data.email.size() <= 100 &&
+             data.phone is string && data.phone.size() <= 20 &&
+             (data.email.size() > 0 || data.phone.size() > 0) &&
              data.get('businessName', '') is string && data.get('businessName', '').size() <= 100 &&
              data.get('companyType', '') is string && data.get('companyType', '').size() <= 100 &&
              data.get('industry', '') is string && data.get('industry', '').size() <= 100 &&
