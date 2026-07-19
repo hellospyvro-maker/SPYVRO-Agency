@@ -17,21 +17,21 @@ export default function AdminLayout({ user, onLogout }: { user: User, onLogout: 
         
         <nav className="flex-1 px-4 py-6 space-y-1">
           <NavLink 
-            to="/admin/dashboard"
+            to="/admin-824/dashboard"
             className={({ isActive }) => `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${isActive ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}
           >
             <LayoutDashboard size={18} />
             Dashboard
           </NavLink>
           <NavLink 
-            to="/admin/leads"
+            to="/admin-824/leads"
             className={({ isActive }) => `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${isActive ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}
           >
             <Inbox size={18} />
             Form Collection
           </NavLink>
           <NavLink 
-            to="/admin/profile"
+            to="/admin-824/profile"
             className={({ isActive }) => `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${isActive ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}
           >
             <UserIcon size={18} />

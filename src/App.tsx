@@ -38,7 +38,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         
         {/* Admin Routes */}
-        <Route path="/admin" element={user ? <AdminLayout user={user} onLogout={handleLogout} /> : <Login onLogin={() => {}} />}>
+        <Route path="/admin-824" element={user ? <AdminLayout user={user} onLogout={handleLogout} /> : <Login onLogin={() => {}} />}>
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<AdminOverview />} />
           <Route path="leads" element={<AdminLeads />} />
@@ -46,8 +46,10 @@ export default function App() {
         </Route>
         
         {/* Redirect old routes */}
-        <Route path="/login" element={<Navigate to="/admin" replace />} />
-        <Route path="/legacy" element={<Navigate to="/admin" replace />} />
+        <Route path="/login" element={<Navigate to="/" replace />} />
+        <Route path="/legacy" element={<Navigate to="/" replace />} />
+        <Route path="/admin" element={<Navigate to="/" replace />} />
+        <Route path="/admin/dashboard" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
