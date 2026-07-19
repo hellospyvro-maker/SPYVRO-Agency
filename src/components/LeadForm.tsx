@@ -176,8 +176,9 @@ export default function LeadForm() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">Phone Number</label>
+                  <label className="block text-sm font-medium text-primary mb-2">Phone Number *</label>
                   <input 
+                    required
                     type="tel" 
                     className="w-full px-4 py-3 rounded-xl border border-border-subtle bg-slate-50 focus:bg-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
                     value={formData.phone}
