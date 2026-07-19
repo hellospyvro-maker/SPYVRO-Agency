@@ -1,0 +1,6 @@
+{
+  "name": "Spyvro",
+  "description": "Turning Ambitious Ideas Into Exceptional Digital Experiences",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

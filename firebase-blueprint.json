@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "Lead": {
+      "title": "Lead",
+      "description": "A lead submitted from the contact form",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "email": { "type": "string", "maxLength": 100 },
+        "businessName": { "type": "string", "maxLength": 100 },
+        "companyType": { "type": "string", "maxLength": 100 },
+        "industry": { "type": "string", "maxLength": 100 },
+        "projectType": { "type": "string", "maxLength": 100 },
+        "budget": { "type": "string", "maxLength": 50 },
+        "details": { "type": "string", "maxLength": 2000 },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["name", "email", "phone"]
+    }
+  },
+  "firestore": {
+    "leads": {
+      "schema": "Lead",
+      "description": "Collection of submitted leads"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isSignedIn() { return request.auth != null; }
+    function isAdmin() { 
+      return isSignedIn() && 
+             request.auth.token.email == 'admin@spyvro.com' && 
+             request.auth.token.email_verified == true; 
+    }
+    
+    function isValidLead(data) {
+      return data.keys().hasAll(['name', 'email', 'phone', 'createdAt']) &&
+             data.keys().size() <= 10 &&
+             data.name is string && data.name.size() <= 100 && data.name.size() > 0 &&
+             data.email is string && data.email.size() <= 100 && data.email.size() > 0 &&
+             data.phone is string && data.phone.size() <= 20 && data.phone.size() > 0 &&
+             data.get('businessName', '') is string && data.get('businessName', '').size() <= 100 &&
+             data.get('companyType', '') is string && data.get('companyType', '').size() <= 100 &&
+             data.get('industry', '') is string && data.get('industry', '').size() <= 100 &&
+             data.get('projectType', '') is string && data.get('projectType', '').size() <= 100 &&
+             data.get('budget', '') is string && data.get('budget', '').size() <= 50 &&
+             data.get('details', '') is string && data.get('details', '').size() <= 2000 &&
+             data.createdAt == request.time;
+    }
+
+    match /leads/{leadId} {
+      // Anyone can submit a lead (create)
+      allow create: if isValidId(leadId) && isValidLead(incoming());
+      
+      // Only admin can read, update, delete
+      allow read: if isAdmin();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+  }
+}
