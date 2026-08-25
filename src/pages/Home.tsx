@@ -3,7 +3,7 @@ import Hero from '../components/Hero';
 import Services from '../components/Services';
 import FeaturedWork from '../components/FeaturedWork';
 import Industries from '../components/Industries';
-import Founder from '../components/Founder';
+import Team from '../components/Team';
 import Footer from '../components/Footer';
 import CustomCursor from '../components/CustomCursor';
 import LeadForm from '../components/LeadForm';
@@ -22,7 +22,7 @@ export default function Home() {
         <Services />
         <FeaturedWork />
         <Industries />
-        <Founder />
+        <Team />
         <LeadForm />
       </main>
 

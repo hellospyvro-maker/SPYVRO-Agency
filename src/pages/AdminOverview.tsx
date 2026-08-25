@@ -101,7 +101,7 @@ export default function AdminOverview() {
             <p className="text-xs text-slate-400 mt-0.5">Quickly review recent client sign-ups.</p>
           </div>
           <Link
-            to="/admin-824/leads"
+            to="/adminspy18/leads"
             className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 hover:translate-x-0.5 transition-all"
           >
             Manage All
