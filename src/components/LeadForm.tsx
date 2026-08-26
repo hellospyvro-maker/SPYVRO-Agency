@@ -3,6 +3,8 @@ import { motion } from 'motion/react';
 import { toast } from 'sonner';
 import { db } from '../firebase';
 import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { Sparkles, ShieldCheck, Clock, CheckCircle2, ArrowRight } from 'lucide-react';
+import Magnetic from './Magnetic';
 
 export default function LeadForm() {
   const initialFormState = {
@@ -92,14 +94,30 @@ export default function LeadForm() {
   const activeBudgets = isAppProject ? appBudgets : websiteBudgets;
 
   return (
-    <section id="contact" className="py-32 bg-slate-50 border-t border-border-subtle">
-      <div className="max-w-3xl mx-auto px-6">
-        <div className="text-center mb-16">
+    <section id="contact" className="py-28 md:py-36 bg-bg relative overflow-hidden">
+      {/* Background ambient lighting */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-blue-400/10 to-indigo-300/10 blur-[140px] rounded-full pointer-events-none" />
+
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-14 md:mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-blue-200/80 bg-blue-50 text-accent text-xs font-semibold uppercase tracking-wider mb-4"
+          >
+            <Sparkles size={13} className="text-accent" />
+            <span>Let's Build Something Great</span>
+          </motion.div>
+
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold text-primary mb-4"
+            transition={{ delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-primary tracking-tight mb-4"
           >
             Start Your Project
           </motion.h2>
@@ -107,31 +125,54 @@ export default function LeadForm() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-lg text-secondary"
+            transition={{ delay: 0.15 }}
+            className="text-base sm:text-lg text-secondary leading-relaxed max-w-lg mx-auto"
           >
             Let's discuss how we can help your business grow.
           </motion.p>
         </div>
 
+        {/* Form Card */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="bg-white rounded-3xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100"
+          className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_50px_-15px_rgba(15,23,42,0.08)] border border-slate-200/80 relative"
         >
+          {/* Trust points strip at top of card */}
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-slate-100 text-xs font-semibold text-slate-500">
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded-full bg-blue-50 text-accent flex items-center justify-center">
+                <Clock size={12} />
+              </div>
+              <span>Fast 24-Hour Response</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <ShieldCheck size={12} />
+              </div>
+              <span>100% Confidential & Secure</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <CheckCircle2 size={12} />
+              </div>
+              <span>Free Consultation & Scope</span>
+            </div>
+          </div>
+
           {success ? (
-            <div className="text-center py-16">
-              <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">✓</div>
-              <h3 className="text-2xl font-bold text-primary mb-2">Thank you!</h3>
-              <p className="text-secondary text-lg max-w-md mx-auto">Your project has been submitted. You will be soon contacted by the team.</p>
+            <div className="text-center py-12">
+              <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner font-bold">✓</div>
+              <h3 className="text-2xl font-display font-bold text-primary mb-2">Thank you!</h3>
+              <p className="text-secondary text-base max-w-md mx-auto">Your project has been submitted. You will be soon contacted by the team.</p>
               <button 
                 onClick={() => {
                   setSuccess(false);
                   setFormData(initialFormState);
                 }}
-                className="mt-8 px-6 py-3 bg-slate-100 hover:bg-slate-200 text-primary font-medium rounded-full transition-colors"
+                className="mt-8 px-7 py-3.5 bg-slate-100 hover:bg-slate-200 text-primary font-semibold text-sm rounded-full transition-colors"
                 type="button"
               >
                 Submit another request
@@ -141,20 +182,22 @@ export default function LeadForm() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">Full Name *</label>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Full Name *</label>
                   <input 
                     required
                     type="text" 
-                    className="w-full px-4 py-3 rounded-xl border border-border-subtle bg-slate-50 focus:bg-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
+                    placeholder="e.g. Rahul Sharma"
+                    className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 focus:bg-white focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none text-sm text-primary transition-all"
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">Company Name</label>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Company Name</label>
                   <input 
                     type="text" 
-                    className="w-full px-4 py-3 rounded-xl border border-border-subtle bg-slate-50 focus:bg-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
+                    placeholder="e.g. Apex Health Ltd."
+                    className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 focus:bg-white focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none text-sm text-primary transition-all"
                     value={formData.businessName}
                     onChange={(e) => setFormData({...formData, businessName: e.target.value})}
                   />
@@ -163,43 +206,43 @@ export default function LeadForm() {
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">Company Type</label>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Company Type</label>
                   <input 
                     type="text" 
-                    className="w-full px-4 py-3 rounded-xl border border-border-subtle bg-slate-50 focus:bg-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
+                    placeholder="e.g. Private Clinic / Startup / Agency"
+                    className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 focus:bg-white focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none text-sm text-primary transition-all"
                     value={formData.companyType}
                     onChange={(e) => setFormData({...formData, companyType: e.target.value})}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
-                    Email Address <span className="text-xs font-normal text-slate-400">(At least Email or Phone required)</span>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
+                    Email Address <span className="text-[10px] font-normal text-slate-400 lowercase">(Email or Phone required)</span>
                   </label>
                   <input 
                     type="email" 
-                    className="w-full px-4 py-3 rounded-xl border border-border-subtle bg-slate-50 focus:bg-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
+                    placeholder="rahul@example.com"
+                    className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 focus:bg-white focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none text-sm text-primary transition-all"
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
-                    Phone Number <span className="text-xs font-normal text-slate-400">(At least Email or Phone required)</span>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
+                    Phone Number <span className="text-[10px] font-normal text-slate-400 lowercase">(Email or Phone required)</span>
                   </label>
                   <input 
                     type="tel" 
-                    className="w-full px-4 py-3 rounded-xl border border-border-subtle bg-slate-50 focus:bg-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
+                    placeholder="+91 98765 43210"
+                    className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 focus:bg-white focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none text-sm text-primary transition-all"
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
                   />
                 </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">Category</label>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Category</label>
                   <select 
-                    className="w-full px-4 py-3 rounded-xl border border-border-subtle bg-slate-50 focus:bg-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all cursor-pointer"
+                    className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 focus:bg-white focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none text-sm text-primary transition-all cursor-pointer"
                     value={formData.industry}
                     onChange={(e) => setFormData({...formData, industry: e.target.value})}
                   >
@@ -209,46 +252,49 @@ export default function LeadForm() {
                     ))}
                   </select>
                 </div>
-                {formData.industry === 'Other' && (
-                  <div>
-                    <label className="block text-sm font-medium text-primary mb-2">Specify Category</label>
-                    <input 
-                      required
-                      type="text" 
-                      className="w-full px-4 py-3 rounded-xl border border-border-subtle bg-slate-50 focus:bg-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
-                      value={formData.industryOther}
-                      onChange={(e) => setFormData({...formData, industryOther: e.target.value})}
-                    />
-                  </div>
-                )}
-                <div className={formData.industry === 'Other' ? "md:col-span-2" : ""}>
-                   <label className="block text-sm font-medium text-primary mb-2">Type of Service</label>
-                    <select 
-                      className="w-full px-4 py-3 rounded-xl border border-border-subtle bg-slate-50 focus:bg-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all cursor-pointer"
-                      value={formData.projectType}
-                      onChange={(e) => setFormData({...formData, projectType: e.target.value, budget: ''})}
-                    >
-                      <option value="">Select service type...</option>
-                      {projectTypes.map(pt => (
-                        <option key={pt} value={pt}>{pt}</option>
-                      ))}
-                    </select>
+              </div>
+
+              {formData.industry === 'Other' && (
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Specify Category</label>
+                  <input 
+                    required
+                    type="text" 
+                    placeholder="Enter your industry or niche"
+                    className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 focus:bg-white focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none text-sm text-primary transition-all"
+                    value={formData.industryOther}
+                    onChange={(e) => setFormData({...formData, industryOther: e.target.value})}
+                  />
                 </div>
+              )}
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Type of Service</label>
+                <select 
+                  className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 focus:bg-white focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none text-sm text-primary transition-all cursor-pointer"
+                  value={formData.projectType}
+                  onChange={(e) => setFormData({...formData, projectType: e.target.value, budget: ''})}
+                >
+                  <option value="">Select service type...</option>
+                  {projectTypes.map(pt => (
+                    <option key={pt} value={pt}>{pt}</option>
+                  ))}
+                </select>
               </div>
 
               {formData.projectType && (
                 <motion.div initial={{opacity: 0, height: 0}} animate={{opacity: 1, height: 'auto'}} transition={{duration: 0.3}}>
-                  <label className="block text-sm font-medium text-primary mb-3">
-                    Budget Range for {isAppProject ? 'App' : 'Website'}
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-3">
+                    Estimated Budget Range ({isAppProject ? 'Mobile Application' : 'Website'})
                   </label>
-                  <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {activeBudgets.map(b => (
                       <label 
                         key={b.value} 
-                        className={`relative flex items-center p-4 border rounded-xl cursor-pointer transition-all ${
+                        className={`relative flex items-center p-4 border rounded-2xl cursor-pointer transition-all ${
                           formData.budget === b.value 
-                            ? 'border-accent bg-accent/5 ring-1 ring-accent' 
-                            : 'border-border-subtle bg-white hover:border-slate-300'
+                            ? 'border-accent bg-blue-50/70 ring-1 ring-accent' 
+                            : 'border-slate-200/80 bg-white hover:border-slate-300'
                         }`}
                       >
                         <input 
@@ -259,7 +305,10 @@ export default function LeadForm() {
                           checked={formData.budget === b.value}
                           onChange={(e) => setFormData({...formData, budget: e.target.value})}
                         />
-                        <span className="flex-1 text-sm font-medium text-primary">{b.label}</span>
+                        <span className="flex-1 text-sm font-semibold text-primary">{b.label}</span>
+                        {formData.budget === b.value && (
+                          <div className="w-2 h-2 rounded-full bg-accent" />
+                        )}
                       </label>
                     ))}
                   </div>
@@ -267,24 +316,27 @@ export default function LeadForm() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-primary mb-2">Project Details / Context (Optional)</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Project Details / Context (Optional)</label>
                 <textarea 
                   rows={4}
-                  className="w-full px-4 py-3 rounded-xl border border-border-subtle bg-slate-50 focus:bg-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all resize-none"
+                  className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/60 focus:bg-white focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none text-sm text-primary transition-all resize-none"
                   placeholder="Tell us a bit about your goals, current challenges, and what you hope to achieve..."
                   value={formData.details}
                   onChange={(e) => setFormData({...formData, details: e.target.value})}
                 />
               </div>
 
-              <div className="pt-4">
-                <button 
-                  disabled={loading}
-                  type="submit" 
-                  className="w-full sm:w-auto px-8 py-4 bg-primary text-white text-base font-medium rounded-full hover:bg-accent focus:ring-4 focus:ring-accent/20 transition-all shadow-lg hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed"
-                >
-                  {loading ? 'Submitting...' : 'Submit Project Request'}
-                </button>
+              <div className="pt-2">
+                <Magnetic className="w-full sm:w-auto">
+                  <button 
+                    disabled={loading}
+                    type="submit" 
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-9 py-4 bg-primary text-white text-base font-semibold rounded-full hover:bg-accent focus:ring-4 focus:ring-accent/20 transition-all duration-300 shadow-lg shadow-primary/10 hover:shadow-accent/25 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    <span>{loading ? 'Submitting...' : 'Submit Project Request'}</span>
+                    <ArrowRight size={18} />
+                  </button>
+                </Magnetic>
               </div>
             </form>
           )}
