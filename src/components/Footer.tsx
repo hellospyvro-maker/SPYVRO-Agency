@@ -30,8 +30,11 @@ export default function Footer({ settings }: { settings?: any }) {
             <a href={`mailto:${contactEmail}`} className="hover:text-accent transition-colors">
               {contactEmail}
             </a>
-            <a href="tel:+919686443606" className="hover:text-accent transition-colors">
-              +91 96864 43606
+            <a href="tel:+917619239920" className="hover:text-accent transition-colors">
+              <span className="text-secondary font-normal mr-1">Call:</span> +91 76192 39920
+            </a>
+            <a href="https://wa.me/917619689498" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
+              <span className="text-secondary font-normal mr-1">WhatsApp only:</span> +91 76196 89498
             </a>
             <span className="text-secondary font-normal">
               Karnataka, India
